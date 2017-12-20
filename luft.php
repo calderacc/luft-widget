@@ -13,7 +13,7 @@ class LuftWidget extends WP_Widget
 {
     public function __construct()
     {
-        parent::__construct('luft', 'Luft');
+        parent::__construct(false,  __('Luft', 'caldera_luft_widget'));
     }
 
     function form($instance)
