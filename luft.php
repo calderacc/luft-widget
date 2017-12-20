@@ -66,6 +66,10 @@ class LuftWidget extends WP_Widget
 
         $luftData = $this->fetchData($station);
 
+        if (!$luftData) {
+            return;
+        }
+
         echo $before_widget;
 
         if ($title) {
@@ -96,11 +100,17 @@ class LuftWidget extends WP_Widget
         echo $after_widget;
     }
 
-    protected function fetchData(string $stationCode): array
+    protected function fetchData(string $stationCode): ?array
     {
         $apiUrl = sprintf('https://luft.jetzt/api/%s', $stationCode);
 
         $response = wp_remote_get($apiUrl);
+
+        $responseCode = $response['response']['code'];
+
+        if (200 !== $responseCode) {
+            return null;
+        }
 
         $data = json_decode($response['body']);
 
