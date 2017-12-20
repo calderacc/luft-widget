@@ -21,9 +21,11 @@ class LuftWidget extends WP_Widget
         if( $instance) {
             $title = esc_attr($instance['title']);
             $station = esc_attr($instance['station']);
+            $intro = esc_attr($instance['intro']);
         } else {
             $title = '';
             $station = '';
+            $intro = '';
         }
 
         ?>
@@ -36,6 +38,11 @@ class LuftWidget extends WP_Widget
     <label for="<?php echo $this->get_field_id('station'); ?>"><?php _e('Station:', 'caldera_luft_widget'); ?></label>
     <input class="widefat" id="<?php echo $this->get_field_id('station'); ?>" name="<?php echo $this->get_field_name('station'); ?>" type="text" value="<?php echo $station; ?>" />
 </p>
+
+<p>
+    <label for="<?php echo $this->get_field_id('intro'); ?>"><?php _e('Intro:', 'caldera_luft_widget'); ?></label>
+    <textarea class="widefat" id="<?php echo $this->get_field_id('intro'); ?>" name="<?php echo $this->get_field_name('intro'); ?>"><?php echo $intro; ?></textarea>
+</p>
 <?php
     }
 
@@ -44,6 +51,7 @@ class LuftWidget extends WP_Widget
         $instance = $old_instance;
 
         $instance['title'] = strip_tags($new_instance['title']);
+        $instance['intro'] = strip_tags($new_instance['intro']);
         $instance['station'] = strip_tags($new_instance['station']);
 
         return $instance;
@@ -51,37 +59,39 @@ class LuftWidget extends WP_Widget
 
     function widget($args, $instance)
     {
-        extract( $args );
-        // these are the widget options
+        extract($args);
         $title = apply_filters('widget_title', $instance['title']);
+        $intro = $instance['intro'];
         $station = $instance['station'];
 
         $luftData = $this->fetchData($station);
 
         echo $before_widget;
-        // Display the widget
+
+        if ($title) {
+            echo $before_title . $title . $after_title;
+        }
+
         echo '<div class="widget-text wp_widget_plugin_box">';
 
-        // Check if title is set
-        if ( $title ) {
-            echo $before_title . $title . $after_title;
+        if ($intro) {
+            echo '<p class="widget-text">'.$intro.'</p>';
         }
 
         echo '<table>';
 
         foreach ($luftData as $data) {
-            echo '<tr><td>';
+            $pollutionLevelClass = sprintf('luft-pollutant luft-pollution-level-%d', $data->pollution_level);
 
+            $row = '<tr class="%s"><td>%s</td><td ><a href="https://luft.jetzt/DEHH008">%s %s</a></td></tr>';
 
-            echo $data->pollutant->name.'</td><td>';
-
-            echo $data->data->value.' '.$data->pollutant->unit_html;
-
-            echo '</td></tr>';
-            //var_dump($data);
+            echo sprintf($row, $pollutionLevelClass, $data->pollutant->name, $data->data->value, $data->pollutant->unit_html);
         }
 
         echo '</table>';
+
+        echo '<p style="text-align: center;"><small>Luftdaten vom <a href="https://www.umweltbundesamt.de/daten/luftbelastung/aktuelle-luftdaten" title="Umweltbundesamt">Umweltbundesamt</a>, aufbereitet von <a href="https://luft.jetzt/">Luft<sup>jetzt</sup></a></small>';
+
         echo '</div>';
         echo $after_widget;
     }
