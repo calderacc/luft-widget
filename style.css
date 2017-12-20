@@ -1,3 +1,7 @@
+.widget_luftwidget a {
+    box-shadow: none !important;
+}
+
 .widget_luftwidget .pollutant td {
     padding: 0.7em;
 }

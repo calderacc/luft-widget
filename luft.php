@@ -75,7 +75,7 @@ class LuftWidget extends WP_Widget
         echo '<div class="widget-text wp_widget_plugin_box">';
 
         if ($intro) {
-            echo '<p class="widget-text">'.$intro.'</p>';
+            echo sprintf('<p class="widget-text">%s</p>', $intro);
         }
 
         echo '<table>';
@@ -83,9 +83,9 @@ class LuftWidget extends WP_Widget
         foreach ($luftData as $data) {
             $pollutionLevelClass = sprintf('pollutant pollution-level-%d', $data->pollution_level);
 
-            $row = '<tr class="%s"><td>%s</td><td ><a href="https://luft.jetzt/DEHH008">%s %s</a></td></tr>';
+            $row = '<tr class="%s"><td>%s</td><td ><a href="https://luft.jetzt/%s">%s %s</a></td></tr>';
 
-            echo sprintf($row, $pollutionLevelClass, $data->pollutant->name, $data->data->value, $data->pollutant->unit_html);
+            echo sprintf($row, $pollutionLevelClass, $data->pollutant->name, $station, $data->data->value, $data->pollutant->unit_html);
         }
 
         echo '</table>';
