@@ -54,8 +54,9 @@ class LuftWidget extends WP_Widget
         extract( $args );
         // these are the widget options
         $title = apply_filters('widget_title', $instance['title']);
-        $text = $instance['text'];
         $station = $instance['station'];
+
+        $luftData = $this->fetchData($station);
 
         echo $before_widget;
         // Display the widget
@@ -66,13 +67,34 @@ class LuftWidget extends WP_Widget
             echo $before_title . $title . $after_title;
         }
 
-        // Check if text is set
-        if( $station ) {
-            echo '<p class="wp_widget_plugin_text">'.$station.'</p>';
+        echo '<table>';
+
+        foreach ($luftData as $data) {
+            echo '<tr><td>';
+
+
+            echo $data->pollutant->name.'</td><td>';
+
+            echo $data->data->value.' '.$data->pollutant->unit_html;
+
+            echo '</td></tr>';
+            //var_dump($data);
         }
 
+        echo '</table>';
         echo '</div>';
         echo $after_widget;
+    }
+
+    protected function fetchData(string $stationCode): array
+    {
+        $apiUrl = sprintf('https://luft.jetzt/api/%s', $stationCode);
+
+        $response = wp_remote_get($apiUrl);
+
+        $data = json_decode($response['body']);
+
+        return $data;
     }
 }
 
