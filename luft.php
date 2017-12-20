@@ -13,7 +13,7 @@ class LuftWidget extends WP_Widget
 {
     public function __construct()
     {
-        parent::__construct(false,  __('Luft', 'caldera_luft_widget'));
+        parent::__construct(false,  __('Luft', 'caldera_luft'));
     }
 
     public function form($instance)
@@ -81,7 +81,7 @@ class LuftWidget extends WP_Widget
         echo '<table>';
 
         foreach ($luftData as $data) {
-            $pollutionLevelClass = sprintf('luft-pollutant luft-pollution-level-%d', $data->pollution_level);
+            $pollutionLevelClass = sprintf('pollutant pollution-level-%d', $data->pollution_level);
 
             $row = '<tr class="%s"><td>%s</td><td ><a href="https://luft.jetzt/DEHH008">%s %s</a></td></tr>';
 
@@ -110,4 +110,7 @@ class LuftWidget extends WP_Widget
 
 add_action('widgets_init', function() {
     register_widget('LuftWidget');
+
+    wp_register_style('luft_widget', plugins_url('style.css',__FILE__ ));
+    wp_enqueue_style('luft_widget');
 });
