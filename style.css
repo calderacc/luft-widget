@@ -1,27 +1,27 @@
-.widget_luftwidget a {
+.widget_luft-widget a {
     box-shadow: none !important;
 }
 
-.widget_luftwidget .pollutant td {
+.widget_luft-widget .pollutant td {
     padding: 0.7em;
 }
 
-.widget_luftwidget .pollution-level-1 {
+.widget_luft-widget .pollution-level-1 {
     color: #155724;
     background-color: #c3e6cb
 }
 
-.widget_luftwidget .pollution-level-2 {
+.widget_luft-widget .pollution-level-2 {
     color: #856404;
     background-color: #ffeeba
 }
 
-.widget_luftwidget .pollution-level-3 {
+.widget_luft-widget .pollution-level-3 {
     color: #721c24;
     background-color: #f5c6cb;
 }
 
-.widget_luftwidget .luft-pollution-level-4 {
+.widget_luft-widget .luft-pollution-level-4 {
     color: #1b1e21;
     background-color: #c6c8ca
 }
