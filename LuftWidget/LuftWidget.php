@@ -24,12 +24,12 @@ class LuftWidget extends WP_Widget
 
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title', 'caldera_luft_widget'); ?></label>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Titel', 'caldera_luft_widget'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id('intro'); ?>"><?php _e('Intro:', 'caldera_luft_widget'); ?></label>
+            <label for="<?php echo $this->get_field_id('intro'); ?>"><?php _e('Beschreibung:', 'caldera_luft_widget'); ?></label>
             <textarea class="widefat" id="<?php echo $this->get_field_id('intro'); ?>" name="<?php echo $this->get_field_name('intro'); ?>"><?php echo $intro; ?></textarea>
         </p>
 
