@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/../Util/LuftData.php';
 require_once __DIR__ . '/../Util/StationList.php';
 
 class LuftWidget extends WP_Widget
@@ -63,7 +64,8 @@ class LuftWidget extends WP_Widget
         $intro = $instance['intro'];
         $station = $instance['station'];
 
-        $luftData = $this->fetchData($station);
+        $luftDataUtil = new LuftData();
+        $luftData = $luftDataUtil->fetchData($station);
 
         if (!$luftData) {
             return;
@@ -99,24 +101,7 @@ class LuftWidget extends WP_Widget
 
         echo $args['after_widget'];
     }
-
-    protected function fetchData(string $stationCode): ?array
-    {
-        $apiUrl = sprintf('https://luft.jetzt/api/%s', $stationCode);
-
-        $response = wp_remote_get($apiUrl);
-
-        $responseCode = $response['response']['code'];
-
-        if (200 !== $responseCode) {
-            return null;
-        }
-
-        $data = json_decode($response['body']);
-
-        return $data;
-    }
-
+    
     protected function createStationSelectList($instance): void
     {
         $stationListUtil = new StationList();
