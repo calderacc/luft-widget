@@ -7,7 +7,7 @@ class StationList
 
     }
 
-    public function getStationList(): array
+    public function getStationList()
     {
         $stationList = [];
         $stationDataList = $this->fetchStationList();
@@ -21,7 +21,7 @@ class StationList
         return $stationList;
     }
 
-    public function getStateStationList(): array
+    public function getStateStationList()
     {
         $stateList = [];
         $stationDataList = $this->fetchStationList();

@@ -4,7 +4,7 @@ class LuftData
 {
     const TTL = 3600;
 
-    public function fetchData(string $stationCode): ?array
+    public function fetchData($stationCode)
     {
         if ($this->isCached($stationCode)) {
             return $this->getCache($stationCode);

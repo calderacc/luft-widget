@@ -102,7 +102,7 @@ class LuftWidget extends WP_Widget
         echo $args['after_widget'];
     }
 
-    protected function createStationSelectList($instance): void
+    protected function createStationSelectList($instance)
     {
         $stationListUtil = new StationList();
         $stateList = $stationListUtil->getStateStationList();
