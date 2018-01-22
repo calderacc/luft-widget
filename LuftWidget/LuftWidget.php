@@ -21,9 +21,6 @@ class LuftWidget extends WP_Widget
             $intro = '';
         }
 
-        $stationListUtil = new StationList();
-        $stationList = $stationListUtil->getStationList();
-
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title', 'caldera_luft_widget'); ?></label>
@@ -40,9 +37,7 @@ class LuftWidget extends WP_Widget
             <select id="<?php echo $this->get_field_id('station'); ?>" name="<?php echo $this->get_field_name('station'); ?>" class="widefat" style="width:100%;">
                 <?php
 
-                foreach ($stationList as $code => $station) {
-                    echo '<option ' . selected($instance['station'], $code) .' value="' . $code .'">' . $station . '</option>';
-                }
+                $this->createStationSelectList($instance);
 
                 ?>
             </select>
@@ -120,5 +115,21 @@ class LuftWidget extends WP_Widget
         $data = json_decode($response['body']);
 
         return $data;
+    }
+
+    protected function createStationSelectList($instance): void
+    {
+        $stationListUtil = new StationList();
+        $stateList = $stationListUtil->getStateStationList();
+
+        foreach ($stateList as $stateCode => $stationList) {
+            echo sprintf('<optgroup label="%s">', $stateCode);
+
+            foreach ($stationList as $stationCode => $stationName) {
+                echo sprintf('<option %s value="%s">%s</option>', selected($instance['station'], $stationCode), $stationCode, $stationName);
+            }
+
+            echo '</optgroup>';
+        }
     }
 }
