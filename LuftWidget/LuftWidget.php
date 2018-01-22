@@ -7,7 +7,7 @@ class LuftWidget extends WP_Widget
 {
     public function __construct()
     {
-        parent::__construct(false,  __('Luft', 'caldera_luft'));
+        parent::__construct('luft-widget',  __('Luft', 'caldera_luft'), ['description' => __('Embed air pollution data into your sidebar' , 'caldera_luft')]);
     }
 
     public function form($instance)
