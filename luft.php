@@ -1,12 +1,13 @@
 <?php
 /*
-Plugin Name: Luft.jetzt Widget
+Plugin Name: Luft.jetzt
 Plugin URI: https://luft.jetzt/
 Description: Show pollution data in your blog
 Version: 0.1
 Author: Malte Hübner
 Author URI: https://maltehuebner.de
-License: MIT
+License: GPL2+
+License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 */
 
 class LuftWidget extends WP_Widget
