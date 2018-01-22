@@ -85,10 +85,10 @@ class LuftWidget extends WP_Widget
 
         echo '<table>';
 
+        $row = '<tr class="%s"><td>%s</td><td><a href="https://luft.jetzt/%s">%s %s</a></td></tr>';
+
         foreach ($luftData as $data) {
             $pollutionLevelClass = sprintf('pollutant pollution-level-%d', $data->pollution_level);
-
-            $row = '<tr class="%s"><td>%s</td><td ><a href="https://luft.jetzt/%s">%s %s</a></td></tr>';
 
             echo sprintf($row, $pollutionLevelClass, $data->pollutant->name, $station, $data->data->value, $data->pollutant->unit_html);
         }
@@ -101,7 +101,7 @@ class LuftWidget extends WP_Widget
 
         echo $args['after_widget'];
     }
-    
+
     protected function createStationSelectList($instance): void
     {
         $stationListUtil = new StationList();
